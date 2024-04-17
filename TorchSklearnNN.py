@@ -60,5 +60,3 @@ with torch.no_grad():
     _, predicted = torch.max(outputs, 1)
     accuracy = (predicted == torch.argmax(y_test, 1)).float().mean()
     print(f"Test accuracy: {accuracy.item()*100:.2f}%")
-
-#yeye
