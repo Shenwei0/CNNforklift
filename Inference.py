@@ -9,7 +9,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-test_image = Image.open('BUGATTI.png').convert('RGB') 
+test_image = Image.open('BMULTIPLA.png').convert('RGB') 
 #test_image = Image.open('BLACKBIRD.png').convert('RGB')  
 
 test_image = transform(test_image)  # Apply the same transform used during training

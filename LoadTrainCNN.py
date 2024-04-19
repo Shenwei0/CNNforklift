@@ -37,7 +37,18 @@ class ImageDataset(torch.utils.data.Dataset):
             image = self.transform(image)
         
         # Her labeles datasættet
+
+        # for pic in len(self.image_paths):
+        #     if pic < len(self.image_paths)//3:
+        #         label = 0
+        #     elif pic > len(self.image_paths) and pic < 10:
+        #         label = 1
+        #     else:
+        #         label = 2
+
         label = 0 if idx > len(self.image_paths)//2 else 1
+
+        #print(img_name)
         
         return image, label
 
@@ -48,7 +59,7 @@ transform = transforms.Compose([
 ])
 
 # Create dataset instance
-dataset = ImageDataset(root_dir='DATA_jet_car', transform=transform)
+dataset = ImageDataset(root_dir='DATA_jet_car_ship', transform=transform)
 
 # Create DataLoader
 batch_size = 1  #Increase den her når datasættet bliver større
@@ -83,7 +94,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
 def training_loop():
-    num_epochs = 10
+    num_epochs = 20
     start = time.time()
     for epoch in range(num_epochs):
         running_loss = 0.0
