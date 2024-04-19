@@ -13,7 +13,8 @@ scaler = MinMaxScaler()
 X_scaled = scaler.fit_transform(digits.data)
 
 # One-hot encode the target labels
-encoder = OneHotEncoder(sparse=False)
+#encoder = OneHotEncoder(sparse=False)
+encoder = OneHotEncoder(sparse_output=False)
 y_onehot = encoder.fit_transform(digits.target.reshape(-1, 1))
 
 # Convert NumPy arrays to PyTorch tensors
@@ -61,4 +62,8 @@ with torch.no_grad():
     accuracy = (predicted == torch.argmax(y_test, 1)).float().mean()
     print(f"Test accuracy: {accuracy.item()*100:.2f}%")
 
-#yeye
+for i in range(10):  # Print the first 5 digits
+    print(f"Digit {i+1}:")
+    print(digits.data[i])  # Feature vector for the digit image
+    print(f"Target Label: {digits.target[i]}")  # Corresponding target label
+    print("---------------------------")
