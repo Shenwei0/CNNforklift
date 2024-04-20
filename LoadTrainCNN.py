@@ -27,9 +27,9 @@ class ImageDataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.image_paths)
 
-    def __getitem__(self, idx):
-        img_name = os.path.join(self.root_dir, self.image_paths[idx])
-        image = Image.open(img_name).convert('RGB')  # Convertere til RGB to ensure consistency
+    def __getitem__(self, x):
+        img_name = os.path.join(self.root_dir, self.image_paths[x])
+        image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
 
         # Resize image to the target size
         image = image.resize(self.target_size, Image.BILINEAR)
@@ -37,8 +37,16 @@ class ImageDataset(torch.utils.data.Dataset):
         if self.transform:
             image = self.transform(image)
         
-        # Her labeles datasættet
-        label = 0 if idx > len(self.image_paths)//2 else 1
+        # Herunder labeles datasættet
+
+        #label = 0 if x > len(self.image_paths)//2 else 1
+
+        label = 1
+        if x > len(self.image_paths)//2:
+            label = 0
+        else: 
+            1
+
         #print(img_name)
         
         return image, label
@@ -78,7 +86,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
 def training():
-    num_epochs = 10
+    num_epochs = 20
     start = time.time()
     for epoch in range(num_epochs):
         running_loss = 0.0
