@@ -30,4 +30,4 @@ predicted_label = torch.argmax(output).item() # Hent predicted class label
 print(output)
 print("Predicted Label:", predicted_label)
 
-#lol
+#lollol
