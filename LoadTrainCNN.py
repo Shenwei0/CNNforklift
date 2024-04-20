@@ -7,6 +7,7 @@ from PIL import Image
 import os
 import time
 
+
 device = (
     "Cuda"
     if torch.cuda.is_available()
@@ -38,7 +39,6 @@ class ImageDataset(torch.utils.data.Dataset):
         
         # Her labeles datasættet
         label = 0 if idx > len(self.image_paths)//2 else 1
-
         #print(img_name)
         
         return image, label
@@ -77,8 +77,8 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
-def training_loop():
-    num_epochs = 20
+def training():
+    num_epochs = 10
     start = time.time()
     for epoch in range(num_epochs):
         running_loss = 0.0
@@ -97,4 +97,5 @@ def training_loop():
     print(model.state_dict)
 
 if __name__ == "__main__":
-    training_loop()
+    training()
+    
