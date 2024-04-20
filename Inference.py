@@ -9,8 +9,8 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-test_image = Image.open('BMULTIPLA.png').convert('RGB') 
-#test_image = Image.open('BLACKBIRD.png').convert('RGB')  
+#test_image = Image.open('BMULTIPLA.png').convert('RGB') 
+test_image = Image.open('BLACKBIRD.png').convert('RGB')  
 
 test_image = transform(test_image)  # Apply the same transform used during training
 test_image = test_image.unsqueeze(0) # Add batch dimension to the test image as the model expects batches
