@@ -93,7 +93,7 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
-def training_loop():
+def training():
     num_epochs = 20
     start = time.time()
     for epoch in range(num_epochs):
@@ -114,4 +114,4 @@ def training_loop():
     print(model.state_dict)
 
 if __name__ == "__main__":
-    training_loop()
+    training()
