@@ -23,6 +23,8 @@ class ImageDataset(torch.utils.data.Dataset):
         self.transform = transform
         self.target_size = target_size
         self.image_paths = os.listdir(root_dir)
+        self.num_labels = 3  # Number of labels
+        self.images_per_label = len(self.image_paths) // self.num_labels  # Number of images per label
 
     def __len__(self):
         return len(self.image_paths)
@@ -41,11 +43,14 @@ class ImageDataset(torch.utils.data.Dataset):
 
         #label = 0 if x > len(self.image_paths)//2 else 1
 
-        label = 1
-        if x > len(self.image_paths)//2:
-            label = 0
-        else: 
-            1
+        # label = 1
+        # if x > len(self.image_paths)//2:
+        #     label = 0
+        # else: 
+        #     1
+        
+        
+        label = x // self.images_per_label
 
         #print(img_name)
         
