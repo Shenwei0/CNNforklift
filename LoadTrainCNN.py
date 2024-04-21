@@ -7,6 +7,7 @@ from PIL import Image
 import os
 import time
 
+
 device = (
     "Cuda"
     if torch.cuda.is_available()
@@ -26,9 +27,9 @@ class ImageDataset(torch.utils.data.Dataset):
     def __len__(self):
         return len(self.image_paths)
 
-    def __getitem__(self, idx):
-        img_name = os.path.join(self.root_dir, self.image_paths[idx])
-        image = Image.open(img_name).convert('RGB')  # Convertere til RGB to ensure consistency
+    def __getitem__(self, x):
+        img_name = os.path.join(self.root_dir, self.image_paths[x])
+        image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
 
         # Resize image to the target size
         image = image.resize(self.target_size, Image.BILINEAR)
@@ -36,17 +37,15 @@ class ImageDataset(torch.utils.data.Dataset):
         if self.transform:
             image = self.transform(image)
         
-        # Her labeles datasættet
+        # Herunder labeles datasættet
 
-        # for pic in len(self.image_paths):
-        #     if pic < len(self.image_paths)//3:
-        #         label = 0
-        #     elif pic > len(self.image_paths) and pic < 10:
-        #         label = 1
-        #     else:
-        #         label = 2
+        #label = 0 if x > len(self.image_paths)//2 else 1
 
-        label = 0 if idx > len(self.image_paths)//2 else 1
+        label = 1
+        if x > len(self.image_paths)//2:
+            label = 0
+        else: 
+            1
 
         #print(img_name)
         
@@ -70,19 +69,12 @@ class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
         self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
-        
         self.pool = nn.MaxPool2d(2, 2)
         self.fc = nn.Linear(16 * 128 * 128, 2)  # Justere input size afhængig af the resized image size
-        
-        #self.pool = nn.MaxPool2d(4, 2)
-        #self.fc = nn.Linear(16 * (256/3) * (256/3), 2)
 
     def forward(self, x):
         x = self.pool(torch.relu(self.conv1(x)))
-        
         x = x.view(-1, 128 * 128 * 16)  # Adjust the size here accordingly
-        #x = x.view(-1, (256/3) * (256/3) * 16)
-        
         x = self.fc(x)
         return x
 
@@ -105,13 +97,13 @@ def training():
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
-        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader)}")
+        print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {running_loss/len(train_loader)}")    
     print("Time used :", time.time() - start, "seconds")
 
     FILE = 'model.pth'
-    #model = models.vgg16(weights="IMAGENET1K_V1")
     torch.save(model.state_dict(), FILE)
     print(model.state_dict)
 
 if __name__ == "__main__":
     training()
+    
