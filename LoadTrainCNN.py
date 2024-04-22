@@ -7,7 +7,6 @@ from PIL import Image
 import os
 import time
 
-
 device = (
     "Cuda"
     if torch.cuda.is_available()
@@ -23,18 +22,15 @@ class ImageDataset(torch.utils.data.Dataset):
         self.transform = transform
         self.target_size = target_size
         self.image_paths = os.listdir(root_dir)
-        self.num_labels = 3  # Number of labels
-        self.images_per_label = len(self.image_paths) // self.num_labels  # Number of images per label
+       
 
     def __len__(self):
         return len(self.image_paths)
 
     def __getitem__(self, x):
-        img_name = os.path.join(self.root_dir, self.image_paths[x])
+        img_name = os.path.join(self.root_dir, self.image_paths[x]) # Initiate image navn for hver image
         image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
-
-        # Resize image to the target size
-        image = image.resize(self.target_size, Image.BILINEAR)
+        image = image.resize(self.target_size, Image.BILINEAR) # Resize image to the target size
 
         if self.transform:
             image = self.transform(image)
