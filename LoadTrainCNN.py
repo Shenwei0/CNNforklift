@@ -37,14 +37,16 @@ class ImageDataset(torch.utils.data.Dataset):
         # Herunder labeles datasættet
 
         label = 1
-        if x > len(self.image_paths)//3:
+        if x < len(self.image_paths)//3:
             label = 0
-        elif x < len(self.image_paths) and x < len(self.image_paths)//3:
+        elif x > len(self.image_paths)//3 and x < len(self.image_paths):
         #elif x < len(self.image_paths) and x > len(self.image_paths)//3:
             label = 1
         else: 
             label = 2
 
+        print(len(self.image_paths)//3)
+        print(len(self.image_paths))
         print(img_name, "and ", label)
 
         return image, label
