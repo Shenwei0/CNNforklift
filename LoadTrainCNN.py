@@ -23,7 +23,6 @@ class ImageDataset(torch.utils.data.Dataset):
         self.target_size = target_size
         self.image_paths = os.listdir(root_dir)
        
-
     def __len__(self):
         return len(self.image_paths)
 
@@ -43,7 +42,7 @@ class ImageDataset(torch.utils.data.Dataset):
         # else: 
         #     1
 
-        
+
 
 
         #print(img_name)
