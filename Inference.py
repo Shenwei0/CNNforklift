@@ -10,8 +10,7 @@ transform = transforms.Compose([
 ])
 
 #test_image = Image.open('BMULTIPLA.png').convert('RGB') 
-test_image = Image.open('BLACKBIRD.png').convert('RGB')  
-
+test_image = Image.open('BUGATTI.png').convert('RGB')  
 test_image = transform(test_image)  # Apply the same transform used during training
 test_image = test_image.unsqueeze(0) # Add batch dimension to the test image as the model expects batches
 
@@ -21,7 +20,7 @@ model = SimpleCNN()
 model.load_state_dict(torch.load('model.pth')) # Load de trænede weights og biases igen så man ikke skal køre netværket igen
 model.eval() # Sætter modellen til evaluation mode
 
-# Lav inference
+# Lave inference
 with torch.no_grad():
     output = model(test_image)
 

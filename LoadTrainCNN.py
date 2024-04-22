@@ -39,14 +39,17 @@ class ImageDataset(torch.utils.data.Dataset):
         
         # Herunder labeles datasættet
 
-        #label = 0 if x > len(self.image_paths)//2 else 1
+        label = 0 if x > len(self.image_paths)//2 else 1
 
-        label = 1
-        if x > len(self.image_paths)//2:
-            label = 0
-        else: 
-            1
+        # label = 1
+        # if x > len(self.image_paths)//2:
+        #     label = 0
+        # else: 
+        #     1
 
+        print(len(self.image_paths)//2)
+        print(len(self.image_paths))
+        print(img_name, "and ", label)
         #print(img_name)
         
         return image, label
@@ -86,7 +89,7 @@ optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
 def training():
-    num_epochs = 20
+    num_epochs = 40
     start = time.time()
     for epoch in range(num_epochs):
         running_loss = 0.0
