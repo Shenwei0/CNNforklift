@@ -48,11 +48,11 @@ class ImageDataset(torch.utils.data.Dataset):
         #     label = 0
         # else: 
         #     1
-        
-        
+
         label = x // self.images_per_label
 
         #print(img_name)
+        print(self.images_per_label)
         
         return image, label
 
@@ -86,7 +86,7 @@ class SimpleCNN(nn.Module):
 model = SimpleCNN() # Initialize modellen
 
 # Definer loss function og optimizer
-criterion = nn.CrossEntropyLoss()
+LossFunc = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 # Training loop
@@ -98,7 +98,7 @@ def training():
         for images, labels in train_loader:
             optimizer.zero_grad()
             outputs = model(images)
-            loss = criterion(outputs, labels)
+            loss = LossFunc(outputs, labels)
             loss.backward()
             optimizer.step()
             running_loss += loss.item()
