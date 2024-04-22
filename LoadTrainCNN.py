@@ -45,8 +45,8 @@ class ImageDataset(torch.utils.data.Dataset):
         else: 
             label = 2
 
-        print(len(self.image_paths)//3)
-        print(len(self.image_paths))
+        #print(len(self.image_paths)//3)
+        #print(len(self.image_paths))
         print(img_name, "and ", label)
 
         return image, label
@@ -68,12 +68,16 @@ train_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 class SimpleCNN(nn.Module):
     def __init__(self):
         super(SimpleCNN, self).__init__()
-        self.conv1 = nn.Conv2d(3, 16, kernel_size=3, padding=1)
+        self.conv1 = nn.Conv2d(3, 8, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv2d(8, 16, kernel_size=3, padding=1)
         self.pool = nn.MaxPool2d(2, 2)
-        self.fc = nn.Linear(16 * 128 * 128, 2)  # Justere input size afhængig af the resized image size
+        #self.fc = nn.Linear(16 * 128 * 128, 2)  # Justere input size afhængig af the resized image size
+        self.fc = nn.Linear(16 * 128 * 128, 3)
 
     def forward(self, x):
         x = self.pool(torch.relu(self.conv1(x)))
+        x = self.pool(torch.relu(self.conv2(x)))
+        #x = self.pool(torch.softmax(self.conv1(x)))
         x = x.view(-1, 128 * 128 * 16)  # Adjust the size here accordingly
         x = self.fc(x)
         return x
