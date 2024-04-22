@@ -33,7 +33,6 @@ class ImageDataset(torch.utils.data.Dataset):
         if self.transform:
             image = self.transform(image)
         
-        #label = 1
         if x < len(self.imagePaths)//3:
             label = 0
         elif x < len(self.imagePaths) and x > len(self.imagePaths)//3:
@@ -53,11 +52,28 @@ Dataset = ImageDataset(rootDir='DATA_jet_car_ship', transform=transform)
 
 trainLoader = DataLoader(Dataset, batch_size=1, shuffle=True)
 
-for x, (images, labels) in enumerate(trainLoader):
-    for i in range(len(images)):
-        imgName = Dataset.imagePaths[x * trainLoader.batch_size + 1]
-        label = labels[i].item()
-        print("Image name: ", imgName, " and label: ", label)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# for x, (images, labels) in enumerate(trainLoader):
+#     for i in range(len(images)):
+#         imgName = Dataset.imagePaths[x * trainLoader.batch_size + 1]
+#         label = labels[i].item()
+#         print("Image name: ", imgName, " and label: ", label)
 
 
 
