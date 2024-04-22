@@ -41,7 +41,7 @@ class ImageDataset(torch.utils.data.Dataset):
         else: 
             label = 2
 
-        print(image)        
+        print(label)        
 
         return image, label
 
