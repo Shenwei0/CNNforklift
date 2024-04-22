@@ -37,15 +37,14 @@ class ImageDataset(torch.utils.data.Dataset):
         
         # Herunder labeles datasættet
 
-        #label = 0 if x > len(self.image_paths)//2 else 1
-
         # label = 1
         # if x > len(self.image_paths)//2:
         #     label = 0
         # else: 
         #     1
 
-        label = x // self.images_per_label
+        
+
 
         #print(img_name)
         print(self.images_per_label)
