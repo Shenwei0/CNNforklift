@@ -29,7 +29,7 @@ class ImageDataset(torch.utils.data.Dataset):
     def __getitem__(self, x):
         img_name = os.path.join(self.root_dir, self.image_paths[x]) # Initiate image navn for hver image
         image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
-        image = image.resize(self.target_size, Image.BILINEAR) # Resize image to the target size
+        image = Image.resize(self.target_size, Image.BILINEAR) # Resize image to the target size
 
         if self.transform:
             image = self.transform(image)
