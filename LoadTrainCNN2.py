@@ -41,7 +41,7 @@ class ImageDataset(torch.utils.data.Dataset):
         else: 
             label = 2
 
-        print(label)        
+        print(imgName, "and label: ", label)        
 
         return image, label
 
@@ -53,11 +53,11 @@ Dataset = ImageDataset(rootDir='DATA_jet_car_ship', transform=transform)
 
 trainLoader = DataLoader(Dataset, batch_size=1, shuffle=True)
 
-# for x, (images, labels) in enumerate(trainLoader):
-#     for i in range(len(images)):
-#         imgName = Dataset.imagePaths[x * trainLoader.batch_size + 1]
-#         label = labels[i].item()
-#         print("Image name: ", imgName, " and label: ", label)
+for x, (images, labels) in enumerate(trainLoader):
+    for i in range(len(images)):
+        imgName = Dataset.imagePaths[x * trainLoader.batch_size + 1]
+        label = labels[i].item()
+        print("Image name: ", imgName, " and label: ", label)
 
 
 
