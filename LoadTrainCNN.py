@@ -22,14 +22,14 @@ class ImageDataset(torch.utils.data.Dataset):
         self.root_dir = root_dir
         self.transform = transform
         self.target_size = target_size
-        self.image_paths = os.listdir(root_dir)
+        self.image_labels = os.listdir(root_dir)
 
     def __len__(self):
-        return len(self.image_paths)
+        return len(self.image_labels)
 
     def __getitem__(self, x):
         img_name = os.path.join(self.root_dir, self.image_paths[x])
-        image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
+        #image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
         image = read_image(img_name)
         image = image.resize(self.target_size, Image.BILINEAR) # Resize image to the target size
 
