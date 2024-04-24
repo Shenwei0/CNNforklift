@@ -33,13 +33,17 @@ class ImageDataset(torch.utils.data.Dataset):
         image = read_image(img_name)
         image = image.resize(self.target_size, Image.BILINEAR) # Resize image to the target size
 
+        #label = 0 if x > len(self.image_paths)//2 else 1
+        label = 1
+        if x > len(self.image_paths)//2:
+            label = 0
+        else: 
+            1
+
         if self.transform:
             image = self.transform(image)
-        
-        # Herunder labeles datasættet
 
         #label = 0 if x > len(self.image_paths)//2 else 1
-
         label = 1
         if x > len(self.image_paths)//2:
             label = 0
@@ -52,7 +56,6 @@ class ImageDataset(torch.utils.data.Dataset):
         #print(img_name)
         
         return image, label
-
 
 # Define transform to apply to the images
 transform = transforms.Compose([
