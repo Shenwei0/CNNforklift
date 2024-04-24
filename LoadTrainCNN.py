@@ -7,7 +7,6 @@ from PIL import Image
 import os
 import time
 
-
 device = (
     "Cuda"
     if torch.cuda.is_available()
@@ -62,7 +61,7 @@ transform = transforms.Compose([
 ])
 
 # Create dataset instance
-dataset = ImageDataset(root_dir='DATA_jet_car_ship', transform=transform)
+dataset = ImageDataset(root_dir='DATA_jet_car', transform=transform)
 
 # Create DataLoader
 batch_size = 1  #Increase den her når datasættet bliver større
