@@ -3,6 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 from torch.utils.data import DataLoader
 from torchvision import transforms, models
+from torchvision.io import read_image
 from PIL import Image
 import os
 import time
@@ -29,9 +30,8 @@ class ImageDataset(torch.utils.data.Dataset):
     def __getitem__(self, x):
         img_name = os.path.join(self.root_dir, self.image_paths[x])
         image = Image.open(img_name).convert('RGB')  # Konvertere til RGB to ensure consistency
-
-        # Resize image to the target size
-        image = image.resize(self.target_size, Image.BILINEAR)
+        image = read_image(img_name)
+        image = image.resize(self.target_size, Image.BILINEAR) # Resize image to the target size
 
         if self.transform:
             image = self.transform(image)
